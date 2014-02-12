@@ -1,0 +1,38 @@
+cmd /c chcp 1251
+set font to Lucida Console
+
+Postgres+PostGis
+----------------
+download postgres http://www.enterprisedb.com/postgresql-932-1-installers-win32?ls=Crossover&type=Crossover
+run
+run StackBulder and install PostGis
+
+--
+C:\PostgreSQL\9.3\data\postgresql.conf
+SET lc_messages TO 'en_US.UTF-8';
+reload configuration
+
+osm2po
+------
+download last version http://osm2po.de/
+run demo.bat, type "yes"
+modify demo.bat for other territories
+
+--
+execute generated sql
+prepend it with
+SET CLIENT_ENCODING TO UNICODE;
+SHOW client_encoding;
+
+psql -p 5433 -U postgres -d gis -q -f "C:\GIS\osm2po-4.8.8\moscow\moscow_2po_4pgr.sql"
+
+--
+run on http://localhost:8888/Osm2poService from .gph file in folder moscow
+java -Xmx512m -jar osm2po-core-4.8.8-signed.jar prefix=moscow cmd=r
+
+--
+pg_dump -p 5433 -U postgres -d gis -f "C:\GIS\DATA\gis.backup"
+psql -p 5433 -U postgres -d test -q -f "C:\GIS\DATA\gis.backup"
+
+--
+http://maps.googleapis.com/maps/api/geocode/json?address=Москва&sensor=true
