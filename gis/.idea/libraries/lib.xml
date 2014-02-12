@@ -3,7 +3,6 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../lib" />
       <root url="file://$PROJECT_DIR$/../lib" />
-      <root url="jar://$PROJECT_DIR$/../../osm2po-4.8.8/osm2po-core-4.8.8-signed.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
